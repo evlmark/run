@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>План подготовки к марафону — Mark Evlampiev</title>
+<style>
+  :root{
+    --bg:#f4f6fa; --card:#ffffff; --card2:#f0f3f8; --line:#dde3ec;
+    --ink:#1a2233; --dim:#55637a; --dim2:#8390a5;
+    --blue:#2e6cb5; --blue-d:#2e6cb5; --green:#1fa971; --amber:#c8880a;
+    --red:#d6403a; --purple:#8a54c4; --teal:#0ea5a5;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.55;
+    padding:0 0 60px; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 20px}
+  header{
+    background:linear-gradient(135deg,#eaf1fb 0%,#f4f6fa 100%);
+    border-bottom:1px solid var(--line); padding:38px 0 30px; margin-bottom:28px;
+  }
+  header .wrap{display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:20px}
+  h1{font-size:26px; font-weight:700; letter-spacing:-.3px}
+  h1 span{color:var(--blue)}
+  .sub{color:var(--dim); font-size:14px; margin-top:6px}
+  .countdown{
+    text-align:right; background:var(--card); border:1px solid var(--line);
+    border-radius:14px; padding:14px 22px;
+  }
+  .countdown .big{font-size:34px; font-weight:800; color:var(--amber); line-height:1}
+  .countdown .lbl{font-size:11px; color:var(--dim2); text-transform:uppercase; letter-spacing:1px; margin-top:4px}
+
+  .tabs{display:flex; gap:8px; margin-bottom:26px; flex-wrap:wrap}
+  .tab{
+    background:var(--card); border:1px solid var(--line); color:var(--dim);
+    padding:11px 20px; border-radius:10px; cursor:pointer; font-size:14px; font-weight:600;
+    transition:.15s; user-select:none;
+  }
+  .tab:hover{border-color:var(--blue-d); color:var(--ink)}
+  .tab.active{background:var(--blue-d); border-color:var(--blue); color:#fff}
+  .tab .em{font-size:12px; opacity:.75; font-weight:400; display:block; margin-top:2px}
+
+  .panel{display:none; animation:fade .3s ease}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:24px; margin-bottom:20px; box-shadow:0 1px 3px rgba(26,34,51,.05);
+  }
+  .card h2{font-size:19px; margin-bottom:4px; display:flex; align-items:center; gap:10px}
+  .card h2 .ic{font-size:22px}
+  .card .desc{color:var(--dim); font-size:14px; margin-bottom:18px}
+
+  .banner{border-radius:12px; padding:14px 18px; margin-bottom:20px; font-size:14px; border:1px solid}
+  .banner.ok{background:rgba(62,207,142,.09); border-color:rgba(62,207,142,.3)}
+  .banner.warn{background:rgba(240,180,41,.09); border-color:rgba(240,180,41,.35)}
+  .banner b{color:var(--ink)}
+
+  table{width:100%; border-collapse:collapse; font-size:13px}
+  th,td{padding:9px 8px; text-align:center; border-bottom:1px solid var(--line)}
+  th{color:var(--dim2); font-weight:600; text-transform:uppercase; font-size:10.5px; letter-spacing:.5px}
+  td.wk{font-weight:700; color:var(--blue)}
+  td.dates{color:var(--dim); font-size:12px; white-space:nowrap}
+  tr.down td{background:rgba(62,207,142,.05)}
+  tr.race td{background:rgba(240,180,41,.1); font-weight:700}
+  tr.peak td{background:rgba(169,123,214,.08)}
+  td.long{font-weight:700; color:var(--amber)}
+  .rest{color:var(--dim2)}
+  .L{color:var(--green)} .T{color:var(--red)} .D{color:var(--amber); font-weight:700}
+  .Z{color:var(--purple)}
+
+  .legend{display:flex; flex-wrap:wrap; gap:14px; margin-top:16px}
+  .legend .it{display:flex; align-items:center; gap:7px; font-size:13px; color:var(--dim)}
+  .dot{width:11px; height:11px; border-radius:50%}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}
+    .countdown{text-align:left} header .wrap{flex-direction:column; align-items:flex-start}
+    table{font-size:11.5px} th,td{padding:7px 4px}}
+
+  .ref{
+    background:var(--card2); border:1px solid var(--line); border-left:3px solid var(--blue);
+    border-radius:10px; padding:14px 16px; margin-bottom:12px;
+  }
+  .ref .rt{font-weight:600; font-size:14px; margin-bottom:4px}
+  .ref .rf{font-size:13px; color:var(--dim); margin-bottom:6px}
+  .ref .rc{font-size:12.5px; color:var(--dim2)}
+  .ref a{color:var(--blue); text-decoration:none; font-size:12px}
+  .ref a:hover{text-decoration:underline}
+  .badge{display:inline-block; font-size:10px; font-weight:700; padding:2px 8px; border-radius:20px;
+    text-transform:uppercase; letter-spacing:.5px; margin-left:8px}
+  .badge.strong{background:rgba(62,207,142,.18); color:var(--green)}
+  .badge.mod{background:rgba(240,180,41,.18); color:var(--amber)}
+  .badge.mine{background:rgba(169,123,214,.18); color:var(--purple)}
+
+  .rules li{margin:10px 0 10px 22px; font-size:14px; color:var(--dim)}
+  .rules li b{color:var(--ink)}
+  .kpi{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:18px}
+  .kpi .k{flex:1; min-width:130px; background:var(--card2); border:1px solid var(--line);
+    border-radius:12px; padding:14px}
+  .kpi .k .v{font-size:22px; font-weight:800}
+  .kpi .k .l{font-size:11px; color:var(--dim2); text-transform:uppercase; letter-spacing:.5px; margin-top:2px}
+  footer{text-align:center; color:var(--dim2); font-size:12px; margin-top:30px}
+  .foot-note{font-size:12.5px; color:var(--dim2); margin-top:14px; padding-top:14px; border-top:1px solid var(--line)}
+
+  /* ---- detailed week blocks ---- */
+  .wkblock{margin-bottom:18px}
+  .wkhead{display:flex; align-items:center; gap:12px; margin:22px 0 12px; padding-bottom:8px; border-bottom:1px solid var(--line)}
+  .wkhead .n{background:var(--blue-d); color:#fff; font-weight:800; font-size:14px; width:34px; height:34px;
+    border-radius:9px; display:flex; align-items:center; justify-content:center}
+  .wkhead .t{font-size:16px; font-weight:700}
+  .wkhead .m{margin-left:auto; font-size:12px; color:var(--dim2)}
+  .day{display:grid; grid-template-columns:120px 1fr 1fr; gap:0; background:var(--card2);
+    border:1px solid var(--line); border-radius:11px; margin-bottom:8px; overflow:hidden}
+  .day.done{border-color:rgba(62,207,142,.4)}
+  .day.rest{opacity:.55}
+  .day .d-when{padding:12px 14px; border-right:1px solid var(--line); display:flex; flex-direction:column; justify-content:center}
+  .day .d-when .dow{font-weight:700; font-size:14px}
+  .day .d-when .dt{font-size:12px; color:var(--dim2)}
+  .day .d-plan{padding:12px 14px; border-right:1px solid var(--line)}
+  .day .d-fact{padding:12px 14px}
+  .d-type{display:inline-block; font-size:10px; font-weight:800; padding:2px 9px; border-radius:20px;
+    text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px}
+  .d-type.l{background:rgba(62,207,142,.16); color:var(--green)}
+  .d-type.t{background:rgba(229,83,75,.16); color:var(--red)}
+  .d-type.dd{background:rgba(240,180,41,.16); color:var(--amber)}
+  .d-type.z{background:rgba(169,123,214,.16); color:var(--purple)}
+  .d-type.r{background:rgba(107,125,153,.16); color:var(--dim2)}
+  .d-dist{font-size:20px; font-weight:800; display:inline-block; margin-left:8px}
+  .d-params{font-size:12.5px; color:var(--dim); margin-top:5px; line-height:1.7}
+  .d-params b{color:var(--ink); font-weight:600}
+  .d-params .chip{display:inline-block; background:var(--card); border:1px solid var(--line);
+    border-radius:6px; padding:1px 8px; margin:1px 3px 1px 0; font-size:11.5px}
+  .d-note{font-size:12px; color:var(--dim2); margin-top:6px; font-style:italic}
+  .d-lbl{font-size:10px; color:var(--dim2); text-transform:uppercase; letter-spacing:.5px; margin-bottom:5px}
+  .d-fact .val{font-size:13px; color:var(--green); font-weight:600}
+  .d-fact .empty{font-size:13px; color:var(--dim2)}
+  @media(max-width:760px){.day{grid-template-columns:88px 1fr; }
+    .day .d-fact{grid-column:1/-1; border-top:1px solid var(--line)}
+    .day .d-plan{border-right:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div>
+      <h1>План подготовки к <span>марафону</span></h1>
+      <div class="sub">Mark Evlampiev · старт от текущей базы 6 км · медиальная плика + pes anserine (под контролем)</div>
+    </div>
+    <div class="countdown">
+      <div class="big">16</div>
+      <div class="lbl">недель до 1 ноября</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="tabs">
+    <div class="tab active" data-tab="marathon">🏁 Марафон 42.2<span class="em">агрессивный · цель этого года</span></div>
+    <div class="tab" data-tab="half">🛡️ Полумарафон 21.1<span class="em">консервативный · запасной вариант</span></div>
+    <div class="tab" data-tab="science">📚 Научная база<span class="em">на чём построен план</span></div>
+    <div class="tab" data-tab="rules">🦵 Правила колена<span class="em">когда тормозить</span></div>
+  </div>
+
+  <!-- ============ MARATHON ============ -->
+  <div class="panel active" id="marathon">
+    <div class="banner warn">
+      ⚡ <b>Агрессивный план.</b> Классически на марафон готовятся 18–20 недель со здоровым коленом. У тебя 16 недель + реабилитируемая плика. Прогрессия длинной сжата сильнее, чем рекомендовал бы осторожный физиотерапевт. Главный риск — скачки длинной пробежки (см. вкладку «Научная база»). Согласуй с доктором.
+    </div>
+
+    <div class="kpi">
+      <div class="k"><div class="v" style="color:var(--amber)">32 км</div><div class="l">пиковая длинная</div></div>
+      <div class="k"><div class="v" style="color:var(--green)">~80/20</div><div class="l">лёгкое / тяжёлое</div></div>
+      <div class="k"><div class="v" style="color:var(--blue)">3–4</div><div class="l">пробежки в неделю</div></div>
+      <div class="k"><div class="v" style="color:var(--red)">51 км</div><div class="l">пиковый недельный объём</div></div>
+    </div>
+
+    <!-- ===== DETAILED WEEKS 1-3 ===== -->
+    <div class="card">
+      <h2><span class="ic">📋</span>Детально: недели 1–3 — смотри и беги</h2>
+      <div class="desc">Каждая пробежка с конкретными цифрами. Колонка «Факт» заполняется по мере того, как бегаешь — присылай данные, я обновляю и корректирую следующие недели.</div>
+
+      <!-- WEEK 1 -->
+      <div class="wkblock">
+        <div class="wkhead"><span class="n">1</span><span class="t">6–12 июля</span><span class="m">2 лёгкие + длинная + зал · ~19 км бега</span></div>
+
+        <div class="day rest">
+          <div class="d-when"><span class="dow">Пн</span><span class="dt">6 июл</span></div>
+          <div class="d-plan"><span class="d-type r">отдых</span></div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">—</div></div>
+        </div>
+
+        <div class="day done">
+          <div class="d-when"><span class="dow">Вт</span><span class="dt">7 июл</span></div>
+          <div class="d-plan"><span class="d-type l">лёгкая ✓</span><span class="d-dist" style="color:var(--green)">5 км</span>
+            <div class="d-params"><span class="chip">метроном 166</span><span class="chip">по самочувствию</span></div>
+            <div class="d-note">Уже сделано сегодня утром.</div>
+          </div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="val">5.02 км · 6:22/км · ЧСС 137 · каденс 162 · колено 0, напряжение к концу</div></div>
+        </div>
+
+        <div class="day">
+          <div class="d-when"><span class="dow">Ср</span><span class="dt">8 июл</span></div>
+          <div class="d-plan"><span class="d-type z">зал</span><span class="d-dist" style="color:var(--purple)">Рутина 1</span>
+            <div class="d-params"><b>Ноги, минимальный вес.</b> Leg curl, leg extension, leg press и др. — 3×10 каждое.</div>
+            <div class="d-note">Следи за зоной Б. После — контраст.</div>
+          </div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">— ждём данные —</div></div>
+        </div>
+
+        <div class="day rest">
+          <div class="d-when"><span class="dow">Чт</span><span class="dt">9 июл</span></div>
+          <div class="d-plan"><span class="d-type r">отдых / бассейн</span>
+            <div class="d-params">Полный отдых <b>или</b> 800 м кролем (без брасса).</div>
+          </div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">—</div></div>
+        </div>
+
+        <div class="day">
+          <div class="d-when"><span class="dow">Пт</span><span class="dt">10 июл</span></div>
+          <div class="d-plan"><span class="d-type l">лёгкая</span><span class="d-dist" style="color:var(--green)">6 км</span>
+            <div class="d-params"><span class="chip">метроном 165</span><span class="chip">темп 7:00–7:30</span><span class="chip">ЧСС 125–140</span></div>
+            <div class="d-note">Разговорный темп — должно быть легко. Не гони.</div>
+          </div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">— ждём данные —</div></div>
+        </div>
+
+        <div class="day">
+          <div class="d-when"><span class="dow">Сб</span><span class="dt">11 июл</span></div>
+          <div class="d-plan"><span class="d-type dd">длинная</span><span class="d-dist" style="color:var(--amber)">8 км</span>
+            <div class="d-params"><span class="chip">метроном 165</span><span class="chip">темп 7:15–7:30</span><span class="chip">ЧСС 130–145</span></div>
+            <div class="d-note">Главная тренировка недели. Если колено &gt;2/10 → бег/ходьба 9+1 мин. Контраст после.</div>
+          </div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">— ждём данные —</div></div>
+        </div>
+
+        <div class="day rest">
+          <div class="d-when"><span class="dow">Вс</span><span class="dt">12 июл</span></div>
+          <div class="d-plan"><span class="d-type r">отдых</span></div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">—</div></div>
+        </div>
+      </div>
+
+      <!-- WEEK 2 -->
+      <div class="wkblock">
+        <div class="wkhead"><span class="n">2</span><span class="t">13–19 июля</span><span class="m">2 лёгкие + длинная 10 + зал · ~22 км бега</span></div>
+
+        <div class="day rest">
+          <div class="d-when"><span class="dow">Пн</span><span class="dt">13 июл</span></div>
+          <div class="d-plan"><span class="d-type r">отдых</span></div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">—</div></div>
+        </div>
+
+        <div class="day">
+          <div class="d-when"><span class="dow">Вт</span><span class="dt">14 июл</span></div>
+          <div class="d-plan"><span class="d-type l">лёгкая</span><span class="d-dist" style="color:var(--green)">6 км</span>
+            <div class="d-params"><span class="chip">метроном 165</span><span class="chip">темп 7:00–7:30</span><span class="chip">ЧСС 125–140</span></div>
+          </div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">— ждём данные —</div></div>
+        </div>
+
+        <div class="day">
+          <div class="d-when"><span class="dow">Ср</span><span class="dt">15 июл</span></div>
+          <div class="d-plan"><span class="d-type z">зал</span><span class="d-dist" style="color:var(--purple)">Рутина 1</span>
+            <div class="d-params"><b>Ноги, минимальный вес.</b> Если зона Б молчала неделю 1 — можно чуть добавить вес.</div>
+          </div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">—</div></div>
+        </div>
+
+        <div class="day rest">
+          <div class="d-when"><span class="dow">Чт</span><span class="dt">16 июл</span></div>
+          <div class="d-plan"><span class="d-type r">отдых</span></div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">—</div></div>
+        </div>
+
+        <div class="day">
+          <div class="d-when"><span class="dow">Пт</span><span class="dt">17 июл</span></div>
+          <div class="d-plan"><span class="d-type l">лёгкая</span><span class="d-dist" style="color:var(--green)">6 км</span>
+            <div class="d-params"><span class="chip">метроном 165</span><span class="chip">темп 7:00–7:30</span><span class="chip">ЧСС 125–140</span></div>
+            <div class="d-note">За день до длинной — не гони, ноги для субботы.</div>
+          </div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">— ждём данные —</div></div>
+        </div>
+
+        <div class="day">
+          <div class="d-when"><span class="dow">Сб</span><span class="dt">18 июл</span></div>
+          <div class="d-plan"><span class="d-type dd">длинная</span><span class="d-dist" style="color:var(--amber)">10 км</span>
+            <div class="d-params"><span class="chip">метроном 165</span><span class="chip">темп 7:15–7:30</span><span class="chip">ЧСС 130–145</span></div>
+            <div class="d-note">+2 км к прошлой длинной. Тейп если хочешь подстраховаться. Контраст после.</div>
+          </div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">— ждём данные —</div></div>
+        </div>
+
+        <div class="day rest">
+          <div class="d-when"><span class="dow">Вс</span><span class="dt">19 июл</span></div>
+          <div class="d-plan"><span class="d-type r">отдых</span></div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">—</div></div>
+        </div>
+      </div>
+
+      <!-- WEEK 3 -->
+      <div class="wkblock">
+        <div class="wkhead"><span class="n">3</span><span class="t">20–26 июля</span><span class="m">первая темповая + длинная 12 + зал · ~24 км бега</span></div>
+
+        <div class="day rest">
+          <div class="d-when"><span class="dow">Пн</span><span class="dt">20 июл</span></div>
+          <div class="d-plan"><span class="d-type r">отдых</span></div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">—</div></div>
+        </div>
+
+        <div class="day">
+          <div class="d-when"><span class="dow">Вт</span><span class="dt">21 июл</span></div>
+          <div class="d-plan"><span class="d-type l">лёгкая</span><span class="d-dist" style="color:var(--green)">6 км</span>
+            <div class="d-params"><span class="chip">метроном 165</span><span class="chip">темп 7:00–7:30</span><span class="chip">ЧСС 125–140</span></div>
+          </div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">— ждём данные —</div></div>
+        </div>
+
+        <div class="day">
+          <div class="d-when"><span class="dow">Ср</span><span class="dt">22 июл</span></div>
+          <div class="d-plan"><span class="d-type z">зал</span><span class="d-dist" style="color:var(--purple)">Рутина 1</span>
+            <div class="d-params"><b>Ноги.</b> Не перед темповой (следующий день) — держи вес умеренным.</div>
+          </div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">—</div></div>
+        </div>
+
+        <div class="day">
+          <div class="d-when"><span class="dow">Чт</span><span class="dt">23 июл</span></div>
+          <div class="d-plan"><span class="d-type t">темповая</span><span class="d-dist" style="color:var(--red)">6 км</span>
+            <div class="d-params">
+              <span class="chip">1 км разогрев лёгко</span><span class="chip">4 км в темпе 6:00–6:15</span><span class="chip">1 км заминка</span><br>
+              <span class="chip">метроном 167–168</span><span class="chip">ЧСС в темпе 145–155</span>
+            </div>
+            <div class="d-note">Первая скоростная. «Комфортно тяжело», не на максимум. Если зона А/Б &gt;2/10 в темпе — сбрось до лёгкого.</div>
+          </div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">— ждём данные —</div></div>
+        </div>
+
+        <div class="day rest">
+          <div class="d-when"><span class="dow">Пт</span><span class="dt">24 июл</span></div>
+          <div class="d-plan"><span class="d-type r">отдых</span></div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">—</div></div>
+        </div>
+
+        <div class="day">
+          <div class="d-when"><span class="dow">Сб</span><span class="dt">25 июл</span></div>
+          <div class="d-plan"><span class="d-type dd">длинная</span><span class="d-dist" style="color:var(--amber)">12 км</span>
+            <div class="d-params"><span class="chip">метроном 165</span><span class="chip">темп 7:15–7:30</span><span class="chip">ЧСС 130–145</span></div>
+            <div class="d-note">⭐ Контрольная точка №1 — первый реальный тест длинной. Тейп рекомендуется. Бег/ходьба если &gt;2/10. Контраст после.</div>
+          </div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">— ждём данные —</div></div>
+        </div>
+
+        <div class="day rest">
+          <div class="d-when"><span class="dow">Вс</span><span class="dt">26 июл</span></div>
+          <div class="d-plan"><span class="d-type r">отдых</span></div>
+          <div class="d-fact"><div class="d-lbl">Факт</div><div class="empty">—</div></div>
+        </div>
+      </div>
+
+      <div class="foot-note">
+        💬 <b>Как работаем:</b> бегаешь по плану → присылаешь данные (дистанция, темп, ЧСС, каденс, реакция колена) → я вписываю в «Факт» и, если нужно, подправляю следующие дни. Если колено сигналит — план гибкий, всегда можно сдвинуть.
+      </div>
+    </div>
+
+    <div class="card">
+      <table>
+        <thead><tr><th>Нед</th><th>Даты</th><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th><th>Длинная</th></tr></thead>
+        <tbody>
+          <tr><td class="wk">1</td><td class="dates">6–12 июл</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="Z">зал</td><td class="rest">отдых</td><td class="L">Л 5</td><td class="D">Д 8</td><td class="rest">отдых</td><td class="long">8 км</td></tr>
+          <tr><td class="wk">2</td><td class="dates">13–19 июл</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="Z">зал</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="D">Д 10</td><td class="rest">отдых</td><td class="long">10 км</td></tr>
+          <tr><td class="wk">3</td><td class="dates">20–26 июл</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="Z">зал</td><td class="T">Т 6</td><td class="rest">отдых</td><td class="D">Д 12</td><td class="rest">отдых</td><td class="long">12 км</td></tr>
+          <tr class="down"><td class="wk">4 ↓</td><td class="dates">27 июл–2 авг</td><td class="rest">отдых</td><td class="L">Л 5</td><td class="rest">отдых</td><td class="L">Л 5</td><td class="rest">отдых</td><td class="D">Д 9</td><td class="rest">отдых</td><td class="long">9 км</td></tr>
+          <tr><td class="wk">5</td><td class="dates">3–9 авг</td><td class="rest">отдых</td><td class="L">Л 7</td><td class="Z">зал</td><td class="T">Т 7</td><td class="rest">отдых</td><td class="D">Д 14</td><td class="rest">отдых</td><td class="long">14 км</td></tr>
+          <tr><td class="wk">6</td><td class="dates">10–16 авг</td><td class="rest">отдых</td><td class="L">Л 8</td><td class="Z">зал</td><td class="L">Л 6</td><td class="rest">отдых</td><td class="D">Д 17</td><td class="rest">отдых</td><td class="long">17 км</td></tr>
+          <tr><td class="wk">7</td><td class="dates">17–23 авг</td><td class="rest">отдых</td><td class="L">Л 8</td><td class="Z">зал</td><td class="T">Т 8</td><td class="rest">отдых</td><td class="D">Д 20</td><td class="rest">отдых</td><td class="long">20 км</td></tr>
+          <tr class="down"><td class="wk">8 ↓</td><td class="dates">24–30 авг</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="rest">отдых</td><td class="D">Д 15</td><td class="rest">отдых</td><td class="long">15 км</td></tr>
+          <tr><td class="wk">9</td><td class="dates">31 авг–6 сен</td><td class="rest">отдых</td><td class="L">Л 9</td><td class="Z">зал</td><td class="T">Т 8</td><td class="rest">отдых</td><td class="D">Д 23</td><td class="rest">отдых</td><td class="long">23 км</td></tr>
+          <tr><td class="wk">10</td><td class="dates">7–13 сен</td><td class="rest">отдых</td><td class="L">Л 9</td><td class="Z">зал</td><td class="L">Л 8</td><td class="rest">отдых</td><td class="D">Д 26</td><td class="rest">отдых</td><td class="long">26 км</td></tr>
+          <tr><td class="wk">11</td><td class="dates">14–20 сен</td><td class="rest">отдых</td><td class="L">Л 10</td><td class="Z">зал</td><td class="T">Т 9</td><td class="rest">отдых</td><td class="D">Д 29</td><td class="rest">отдых</td><td class="long">29 км</td></tr>
+          <tr class="down"><td class="wk">12 ↓</td><td class="dates">21–27 сен</td><td class="rest">отдых</td><td class="L">Л 7</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="rest">отдых</td><td class="D">Д 20</td><td class="rest">отдых</td><td class="long">20 км</td></tr>
+          <tr class="peak"><td class="wk">13</td><td class="dates">28 сен–4 окт</td><td class="rest">отдых</td><td class="L">Л 10</td><td class="rest">отдых</td><td class="T">Т 9</td><td class="rest">отдых</td><td class="D">Д 32</td><td class="rest">отдых</td><td class="long">32 км ⭐</td></tr>
+          <tr class="down"><td class="wk">14 ↓</td><td class="dates">5–11 окт</td><td class="rest">отдых</td><td class="L">Л 8</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="rest">отдых</td><td class="D">Д 22</td><td class="rest">отдых</td><td class="long">22 км</td></tr>
+          <tr class="down"><td class="wk">15 ↓</td><td class="dates">12–18 окт</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="rest">отдых</td><td class="L">Л 5</td><td class="rest">отдых</td><td class="D">Д 14</td><td class="rest">отдых</td><td class="long">14 км</td></tr>
+          <tr class="down"><td class="wk">16 ↓</td><td class="dates">19–25 окт</td><td class="rest">отдых</td><td class="L">Л 5</td><td class="rest">отдых</td><td class="L">Л 3</td><td class="rest">отдых</td><td class="L">Л 3</td><td class="rest">отдых</td><td class="long">—</td></tr>
+          <tr class="race"><td class="wk">🏁</td><td class="dates">26 окт–1 ноя</td><td class="rest">отдых</td><td class="L">Л 4</td><td class="rest">отдых</td><td class="L">Л 3</td><td class="rest">отдых</td><td class="rest">отдых</td><td class="D">МАРАФОН</td><td class="long">42.2 км</td></tr>
+        </tbody>
+      </table>
+      <div class="legend">
+        <div class="it"><span class="dot" style="background:var(--green)"></span>Л — лёгкая (7:00–7:30/км, ЧСС 125–140)</div>
+        <div class="it"><span class="dot" style="background:var(--red)"></span>Т — темповая (6:00–6:15/км, ЧСС 145–155)</div>
+        <div class="it"><span class="dot" style="background:var(--amber)"></span>Д — длинная (лёгкий темп, можно бег/ходьба)</div>
+        <div class="it"><span class="dot" style="background:var(--purple)"></span>Зал — Рутина 1, ноги</div>
+        <div class="it"><span class="dot" style="background:rgba(62,207,142,.4)"></span>↓ — восстановительная неделя</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="ic">🎯</span>Контрольные точки колена</h2>
+      <table>
+        <thead><tr><th>Неделя</th><th>Дистанция</th><th>Что проверяем</th><th>Если колено сигналит</th></tr></thead>
+        <tbody>
+          <tr><td class="wk">3</td><td class="long">12 км</td><td>первый реальный тест длинной</td><td>бег/ходьба 9+1 мин</td></tr>
+          <tr><td class="wk">7</td><td class="long">20 км</td><td>≈ полумарафон</td><td>разреши ходить последние 5 км</td></tr>
+          <tr><td class="wk">11</td><td class="long">29 км</td><td>критическая нагрузка</td><td>если &gt;2/10 → снизь до 25 км</td></tr>
+          <tr class="peak"><td class="wk">13</td><td class="long">32 км ⭐</td><td>главная репетиция</td><td>это потолок, дальше не нужно</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============ HALF ============ -->
+  <div class="panel" id="half">
+    <div class="banner ok">
+      🛡️ <b>Консервативный план — запасной вариант.</b> Полумарафон 21.1 км от твоей текущей базы 6 км за 16 недель — <b>полностью безопасная и реалистичная цель</b>. Длинная растёт не более чем на 2 км за раз и почти всегда в пределах +10% от самой длинной за 30 дней (главный доказанный фактор риска). Если марафон окажется слишком агрессивным для колена — переключаешься сюда без потери формы.
+    </div>
+
+    <div class="kpi">
+      <div class="k"><div class="v" style="color:var(--amber)">19 км</div><div class="l">пиковая длинная</div></div>
+      <div class="k"><div class="v" style="color:var(--green)">≤10%</div><div class="l">скачок длинной</div></div>
+      <div class="k"><div class="v" style="color:var(--blue)">3</div><div class="l">пробежки в неделю</div></div>
+      <div class="k"><div class="v" style="color:var(--red)">32 км</div><div class="l">пиковый недельный объём</div></div>
+    </div>
+
+    <div class="card">
+      <table>
+        <thead><tr><th>Нед</th><th>Даты</th><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th><th>Длинная</th></tr></thead>
+        <tbody>
+          <tr><td class="wk">1</td><td class="dates">6–12 июл</td><td class="rest">отдых</td><td class="L">Л 5</td><td class="Z">зал</td><td class="rest">отдых</td><td class="L">Л 5</td><td class="D">Д 8</td><td class="rest">отдых</td><td class="long">8 км</td></tr>
+          <tr><td class="wk">2</td><td class="dates">13–19 июл</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="Z">зал</td><td class="rest">отдых</td><td class="L">Л 5</td><td class="D">Д 9</td><td class="rest">отдых</td><td class="long">9 км</td></tr>
+          <tr><td class="wk">3</td><td class="dates">20–26 июл</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="Z">зал</td><td class="L">Л 5</td><td class="rest">отдых</td><td class="D">Д 10</td><td class="rest">отдых</td><td class="long">10 км</td></tr>
+          <tr class="down"><td class="wk">4 ↓</td><td class="dates">27 июл–2 авг</td><td class="rest">отдых</td><td class="L">Л 5</td><td class="rest">отдых</td><td class="L">Л 5</td><td class="rest">отдых</td><td class="D">Д 8</td><td class="rest">отдых</td><td class="long">8 км</td></tr>
+          <tr><td class="wk">5</td><td class="dates">3–9 авг</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="Z">зал</td><td class="T">Т 6</td><td class="rest">отдых</td><td class="D">Д 11</td><td class="rest">отдых</td><td class="long">11 км</td></tr>
+          <tr><td class="wk">6</td><td class="dates">10–16 авг</td><td class="rest">отдых</td><td class="L">Л 7</td><td class="Z">зал</td><td class="L">Л 6</td><td class="rest">отдых</td><td class="D">Д 12</td><td class="rest">отдых</td><td class="long">12 км</td></tr>
+          <tr><td class="wk">7</td><td class="dates">17–23 авг</td><td class="rest">отдых</td><td class="L">Л 7</td><td class="Z">зал</td><td class="T">Т 6</td><td class="rest">отдых</td><td class="D">Д 13</td><td class="rest">отдых</td><td class="long">13 км</td></tr>
+          <tr class="down"><td class="wk">8 ↓</td><td class="dates">24–30 авг</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="rest">отдых</td><td class="L">Л 5</td><td class="rest">отдых</td><td class="D">Д 10</td><td class="rest">отдых</td><td class="long">10 км</td></tr>
+          <tr><td class="wk">9</td><td class="dates">31 авг–6 сен</td><td class="rest">отдых</td><td class="L">Л 7</td><td class="Z">зал</td><td class="T">Т 7</td><td class="rest">отдых</td><td class="D">Д 14</td><td class="rest">отдых</td><td class="long">14 км</td></tr>
+          <tr><td class="wk">10</td><td class="dates">7–13 сен</td><td class="rest">отдых</td><td class="L">Л 8</td><td class="Z">зал</td><td class="L">Л 6</td><td class="rest">отдых</td><td class="D">Д 15</td><td class="rest">отдых</td><td class="long">15 км</td></tr>
+          <tr><td class="wk">11</td><td class="dates">14–20 сен</td><td class="rest">отдых</td><td class="L">Л 8</td><td class="Z">зал</td><td class="T">Т 7</td><td class="rest">отдых</td><td class="D">Д 16</td><td class="rest">отдых</td><td class="long">16 км</td></tr>
+          <tr class="down"><td class="wk">12 ↓</td><td class="dates">21–27 сен</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="rest">отдых</td><td class="D">Д 12</td><td class="rest">отдых</td><td class="long">12 км</td></tr>
+          <tr class="peak"><td class="wk">13</td><td class="dates">28 сен–4 окт</td><td class="rest">отдых</td><td class="L">Л 8</td><td class="Z">зал</td><td class="T">Т 7</td><td class="rest">отдых</td><td class="D">Д 18</td><td class="rest">отдых</td><td class="long">18 км</td></tr>
+          <tr class="peak"><td class="wk">14</td><td class="dates">5–11 окт</td><td class="rest">отдых</td><td class="L">Л 8</td><td class="rest">отдых</td><td class="T">Т 7</td><td class="rest">отдых</td><td class="D">Д 19</td><td class="rest">отдых</td><td class="long">19 км ⭐</td></tr>
+          <tr class="down"><td class="wk">15 ↓</td><td class="dates">12–18 окт</td><td class="rest">отдых</td><td class="L">Л 6</td><td class="rest">отдых</td><td class="L">Л 5</td><td class="rest">отдых</td><td class="D">Д 12</td><td class="rest">отдых</td><td class="long">12 км</td></tr>
+          <tr class="down"><td class="wk">16 ↓</td><td class="dates">19–25 окт</td><td class="rest">отдых</td><td class="L">Л 5</td><td class="rest">отдых</td><td class="L">Л 4</td><td class="rest">отдых</td><td class="L">Л 3</td><td class="rest">отдых</td><td class="long">—</td></tr>
+          <tr class="race"><td class="wk">🏁</td><td class="dates">26 окт–1 ноя</td><td class="rest">отдых</td><td class="L">Л 4</td><td class="rest">отдых</td><td class="L">Л 3</td><td class="rest">отдых</td><td class="rest">отдых</td><td class="D">ПОЛУМАРАФОН</td><td class="long">21.1 км</td></tr>
+        </tbody>
+      </table>
+      <div class="legend">
+        <div class="it"><span class="dot" style="background:var(--green)"></span>Л — лёгкая</div>
+        <div class="it"><span class="dot" style="background:var(--red)"></span>Т — темповая</div>
+        <div class="it"><span class="dot" style="background:var(--amber)"></span>Д — длинная</div>
+        <div class="it"><span class="dot" style="background:var(--purple)"></span>Зал</div>
+        <div class="it"><span class="dot" style="background:rgba(62,207,142,.4)"></span>↓ восстановление</div>
+      </div>
+    </div>
+
+    <div class="banner ok">
+      💡 <b>Гибридная стратегия (рекомендую).</b> Иди по марафонскому плану, но привязывайся к контрольным точкам колена. Если к неделе 7–9 длинная 20+ км проходит чисто — целься в марафон. Если колено сигналит — плавно переходишь на этот полумарафонский трек. Оба плана до недели 4 почти идентичны, так что решение можно отложить на 4–6 недель.
+    </div>
+  </div>
+
+  <!-- ============ SCIENCE ============ -->
+  <div class="panel" id="science">
+    <div class="card">
+      <h2><span class="ic">📚</span>На чём построен план</h2>
+      <div class="desc">Каждый принцип с источником и честной пометкой уровня доказательности: <span class="badge strong">сильная</span> — есть исследования, <span class="badge mod">умеренная</span> — консенсус/смешанные данные, <span class="badge mine">интерпретация</span> — моя логика под твой случай.</div>
+
+      <div class="ref">
+        <div class="rt">Каденс 165–168 как защита колена <span class="badge strong">сильная</span></div>
+        <div class="rf">Lenhart, Thelen, Heiderscheit et al. — «Increasing Running Step Rate Reduces Patellofemoral Joint Forces» (Med Sci Sports Exerc, 2013)</div>
+        <div class="rc">Увеличение каденса на 10% снижает силы в пателлофеморальном суставе до ~20%. Работает и для приземления на пятку, и на переднюю часть стопы. → Отсюда весь акцент на метроном 165+.</div>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/23917470/" target="_blank">pubmed.ncbi.nlm.nih.gov/23917470</a>
+      </div>
+
+      <div class="ref">
+        <div class="rt">Применение каденса именно к плике <span class="badge mine">интерпретация</span></div>
+        <div class="rf">Прямых исследований «каденс + синдром медиальной плики» нет</div>
+        <div class="rc">Каденс доказанно снижает нагрузку на пателлофеморальный сустав в целом; плика раздражается при трении о медиальный мыщелок в том же суставе. Экстраполяция логична, но это не прямое доказательство. Твои данные (23 апр: при 170 колено реагировало меньше, чем при 152) — эмпирическое подтверждение конкретно для тебя.</div>
+      </div>
+
+      <div class="ref">
+        <div class="rt">80/20 — много лёгкого бега, мало тяжёлого <span class="badge strong">сильная</span></div>
+        <div class="rf">Seiler &amp; Kjerland (2006); Esteve-Lanao et al. (2007, Med Sci Sports Exerc)</div>
+        <div class="rc">Элитные атлеты на выносливость независимо от вида спорта тяготеют к ~80% низкой / 20% высокой интенсивности. Sub-elite бегуны с распределением 80/20 улучшали результат на 10 км сильнее, чем группы с большей долей интенсива. → Отсюда преобладание лёгких Л и малое число темповых Т.</div>
+        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11679080/" target="_blank">systematic review 2024</a>
+      </div>
+
+      <div class="ref">
+        <div class="rt">Риск даёт скачок ОДНОЙ пробежки, а не недельный объём <span class="badge strong">сильная</span></div>
+        <div class="rf">Cohort 5200 бегунов, 18 мес (British Journal of Sports Medicine, 2024)</div>
+        <div class="rc"><b>Это исследование изменило план.</b> Риск травмы перегрузки резко растёт, когда одна пробежка длиннее самой длинной за 30 дней более чем на 10%. Недельный объём предсказывает травмы плохо. → Именно поэтому агрессивные скачки длинной (20→23→29→32) — самое слабое место, а консервативный план держит рост длинной в пределах +10%.</div>
+        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12421110/" target="_blank">pmc.ncbi.nlm.nih.gov/PMC12421110</a>
+      </div>
+
+      <div class="ref">
+        <div class="rt">«Правило 10% в неделю» — слабее, чем принято думать <span class="badge mod">умеренная</span></div>
+        <div class="rf">Nielsen et al. (JOSPT 2014); RCT новичков — рост на 24% без роста травм</div>
+        <div class="rc">Классическое правило +10%/неделю к объёму имеет мало прямых доказательств. Более важен тип нагрузки и скачки отдельных сессий (см. выше). → Я использую его как ориентир, но не догму.</div>
+        <a href="https://www.jospt.org/doi/10.2519/jospt.2014.5164" target="_blank">jospt.org/10.2519/jospt.2014.5164</a>
+      </div>
+
+      <div class="ref">
+        <div class="rt">Бег/ходьба (метод Гэллоуэя) <span class="badge strong">сильная</span></div>
+        <div class="rf">Jeff Galloway; исследование Univ. of Marburg (марафонцы бег/ходьба vs непрерывный бег)</div>
+        <div class="rc">Ходьбовые паузы снижают ударную нагрузку на 15–30% за шаг. В марбургском исследовании группа бег/ходьба финишировала с тем же временем, но с меньшей болью и усталостью в мышцах после. → Отсюда стратегия бег/ходьба на длинных и на марафоне.</div>
+        <a href="https://runnersconnect.net/galloway-run-walk-run/" target="_blank">runnersconnect.net/galloway</a>
+      </div>
+
+      <div class="ref">
+        <div class="rt">Тейпер (подводка) 2–3 недели перед стартом <span class="badge strong">сильная</span></div>
+        <div class="rf">Bosquet et al. мета-анализ (2007); Frontiers 2021 — рекреационные марафонцы</div>
+        <div class="rc">Снижение объёма на 40–60% при сохранении интенсивности за 2 недели улучшает результат на 2–10%. Экспоненциальный (плавный) тейпер чуть лучше ступенчатого. → Отсюда недели 14–16 со снижением объёма.</div>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/17762369/" target="_blank">pubmed.ncbi.nlm.nih.gov/17762369</a>
+      </div>
+
+      <div class="ref">
+        <div class="rt">Возврат к бегу после травмы — ступенчатая нагрузка <span class="badge strong">сильная</span></div>
+        <div class="rf">JOSPT / return-to-run протоколы (graded exposure)</div>
+        <div class="rc">Нагрузка наращивается ступенями 5–10%/нед; сила поражённой ноги должна достигать целевых значений до прогрессии; критерии функции (hop-test, беговой тест) снижают риск рецидива в разы. → Отсюда циклы 3:1 и зал перед беговым объёмом.</div>
+        <a href="https://theprehabguys.com/get-back-to-running/" target="_blank">theprehabguys.com</a>
+      </div>
+
+      <div class="ref">
+        <div class="rt">Периодизация 3:1 и место зала <span class="badge mine">интерпретация</span></div>
+        <div class="rc">Циклирование «3 недели рост + 1 восстановление» и постановка зала в среду (не перед ключевыми тренировками, убрать к пику) — стандартная практика периодизации + здравый смысл. Прямо подкреплено твоими данными: боль зоны Б после зала на следующий день (20 июня).</div>
+      </div>
+
+      <div class="foot-note">
+        ⚠️ Веб-поиск возвращает US-источники; я привёл ключевые узнаваемые работы. Это не замена консультации спортивного врача или физиотерапевта — особенно по скорости наращивания длинной при реабилитируемом колене.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RULES ============ -->
+  <div class="panel" id="rules">
+    <div class="card">
+      <h2><span class="ic">🦵</span>Правила колена — когда тормозить</h2>
+      <div class="desc">План вторичен. Колено — первично. Эти правила приоритетнее любой цифры в таблице.</div>
+      <ul class="rules">
+        <li><b>Метроном обязателен.</b> Все пробежки от 165 шаг/мин. Темповые — 167–168. Это твоя главная защита плики (см. научную базу).</li>
+        <li><b>Порог боли 2/10 при беге.</b> До 2/10 — продолжай. Выше 2/10 в зоне А или Б → переходи на ходьбу до затихания, потом снова бег. Не терпи «на характере».</li>
+        <li><b>Зона Б (pes anserine) — сигнал нагрузки.</b> Раньше болела после зала и длинного бега. Если появляется при беге — снизь темп, добавь ходьбовые паузы. Контраст после.</li>
+        <li><b>Правило следующего утра.</b> Если наутро после длинной колено ноет заметно сильнее обычного фона — следующую пробежку сделай короче или замени бассейном.</li>
+        <li><b>Зал не накануне длинной.</b> Твои данные показали: бег на следующий день после зала = больше чувствительности. Между залом и длинной — минимум 2 дня.</li>
+        <li><b>Контрастотерапия после каждой длинной и темповой.</b> Работает у тебя стабильно весь период реабилитации.</li>
+        <li><b>Бассейн — резервное кардио.</b> Кроль безопасен. В любую неделю можно заменить лёгкую пробежку на 800–1000 м кролем без потери аэробной базы. Брасс — нельзя.</li>
+        <li><b>Красная неделя WHOOP.</b> Рекавери &lt;33% (например после Концерты) → лёгкую пробежку в отдых или бассейн. Длинную не двигай на такой день.</li>
+        <li><b>Тейп на длинные 15+ км.</b> McConnell-тейп поднимал порог с ~5 до 10+ км. На пиковые длинные — клей.</li>
+        <li><b>Право остановиться.</b> Ты уже принял, что марафон в этом году может не случиться. Финиш полумарафона здоровым &gt; сход с марафона с обострением плики. Это не поражение, это стратегия.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2><span class="ic">📅</span>Ревизия плана каждые 3–4 недели</h2>
+      <div class="desc">Пересматриваем после каждого восстановительного цикла (недели 4, 8, 12) на основе дневников.</div>
+      <table>
+        <thead><tr><th>Точка ревизии</th><th>Вопрос</th><th>Решение</th></tr></thead>
+        <tbody>
+          <tr><td class="wk">после нед 4</td><td>длинная 12 км прошла чисто?</td><td>да → марафон-трек · нет → полумарафон-трек</td></tr>
+          <tr><td class="wk">после нед 8</td><td>20 км без боли &gt;2/10?</td><td>да → держим марафон · нет → переход на полумарафон</td></tr>
+          <tr><td class="wk">после нед 12</td><td>29 км реально?</td><td>да → идём на 32 · нет → потолок 21–25, цель полумарафон</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    Составлено 7 июля 2026 · Mark Evlampiev · план ориентировочный, приоритет — сигналы колена и мнение лечащего врача<br>
+    Диагнозы: синдром медиальной плики (правое колено) + бурсит pes anserine (Doppler+)
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(t=>{
+    t.addEventListener('click',()=>{
+      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById(t.dataset.tab).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+</script>
+</body>
+</html>
