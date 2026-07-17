@@ -114,6 +114,12 @@
     border-radius:9px; display:flex; align-items:center; justify-content:center}
   .wkhead .t{font-size:16px; font-weight:700}
   .wkhead .m{margin-left:auto; font-size:12px; color:var(--dim2)}
+  .wkhead{cursor:pointer; user-select:none; transition:opacity .15s}
+  .wkhead:hover{opacity:.75}
+  .wkhead .chev{margin-left:14px; font-size:12px; color:var(--dim2); transition:transform .2s; flex-shrink:0}
+  .wkblock.collapsed .wkhead .chev{transform:rotate(-90deg)}
+  .wkblock.collapsed .day{display:none}
+  .wkblock.collapsed .wkhead{margin-bottom:12px; border-bottom-color:transparent}
   .day{display:grid; grid-template-columns:120px 1fr 1fr; gap:0; background:var(--card2);
     border:1px solid var(--line); border-radius:11px; margin-bottom:8px; overflow:hidden}
   .day.done{border-color:rgba(62,207,142,.4)}
@@ -187,7 +193,7 @@
       <div class="desc">Каждая пробежка с конкретными цифрами. Колонка «Факт» заполняется по мере того, как бегаешь — присылай данные, я обновляю и корректирую следующие недели.</div>
 
       <!-- WEEK 1 -->
-      <div class="wkblock">
+      <div class="wkblock collapsed">
         <div class="wkhead"><span class="n">1</span><span class="t">6–12 июля</span><span class="m">2 лёгкие + длинная + зал · ~19 км бега</span></div>
 
         <div class="day rest">
@@ -588,6 +594,14 @@
       document.getElementById(t.dataset.tab).classList.add('active');
       window.scrollTo({top:0,behavior:'smooth'});
     });
+  });
+
+  // Сворачивание недель по клику на заголовок
+  document.querySelectorAll('.wkhead').forEach(h=>{
+    const chev=document.createElement('span');
+    chev.className='chev'; chev.textContent='▼';
+    h.appendChild(chev);
+    h.addEventListener('click',()=>h.parentElement.classList.toggle('collapsed'));
   });
 </script>
 </body>
